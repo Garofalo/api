@@ -3,7 +3,7 @@ from peewee import *
 from playhouse.postgres_ext import *
 
 response_API = requests.get(
-    'https://poetrydb.org/author/Dickinson')
+    'https://poetrydb.org/author/Algernon%20Charles%20Swinburne')
 data = response_API.json()
 
 db = PostgresqlDatabase('poems', user='postgres',
@@ -23,8 +23,8 @@ class Poem(BaseModel):
 
 
 db.connect()
-db.drop_tables([Poem])
-db.create_tables([Poem])
+# db.drop_tables([Poem])
+# db.create_tables([Poem])
 
 # print(data)
 
