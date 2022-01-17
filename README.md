@@ -366,7 +366,3 @@ Result:
 ## License
 
 To protect the openness of this endeavour the software is released under the terms of the [GNU Public License v2](https://github.com/thundercomb/poetrydb/blob/master/LICENSE.txt). In essence it allows you to reuse and modify this software, as long as the resulting program(s) remain open and licensed in the same way.
-
-```
-
-```
