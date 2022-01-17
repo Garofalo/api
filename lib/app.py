@@ -1,5 +1,3 @@
-
-from crypt import methods
 from peewee import *
 from playhouse.postgres_ext import *
 from flask import jsonify
