@@ -32,7 +32,7 @@ app = Flask(__name__)
 
 @app.route('/poems/<author>', methods=['GET'])
 @app.route('/poems/', methods=['GET'])
-def poems(author=None, title=None):
+def poems(author=None,):
 
     if author:
         poems = []
@@ -51,6 +51,7 @@ def poems(author=None, title=None):
 
 
 @app.route('/title/<title>', methods=['GET'])
+@app.route('/title', methods=['GET'])
 def title(title=None):
     if title:
         poems = []
@@ -59,14 +60,21 @@ def title(title=None):
             poems.append(poem)
 
         if poems == []:
-            return jsonify({'Message': "No Poem's Title Contains those Letters In that Order"})
+            return jsonify({'Message': "No Poem's Title Contains those letters In that Order"})
         else:
             poems = jsonify(poems)
             return poems
+    else:
+        poems = Poem.select()
+        index = random.randint(1, len(poems))
+        poem = poems[index]
+        poem = model_to_dict(poem)
+        title = poem['title']
+        return jsonify(title)
 
 
 @app.route('/random/<author>', methods=['GET'])
-@app.route('/random/', methods=['GET'])
+@app.route('/random', methods=['GET'])
 def random_poem(author=None):
 
     if author:
@@ -90,35 +98,20 @@ def random_poem(author=None):
         return poem
 
 
-@app.route('/lines/<line>', methods=['GET'])
-@app.route('/lines/', methods=['GET'])
-def lines(line=None):
-    if line:
-        subquery = Poem.select(
-            Poem.lines,
-            fn.ARRAY_AGG(Poem.lines).alias('lines')).group_by(Poem.lines)
-        return 'Hi'
-        # for poem in Poem.select().where(Poem.lines == line):
-        #     poem = model_to_dict(poem)
-        #     poems.append(poem)
-        #     if poems == []:
-        #         return jsonify({"Message": 'No lines contain that sequence of letters.'})
-        #     else:
-        #         return jsonify(poems)
-
-    else:
-        poems = Poem.select()
-        index = random.randint(1, len(poems))
-        poem = poems[index]
-        poem = model_to_dict(poem)
-        lines = poem['lines']
+@app.route('/lines', methods=['GET'])
+def lines():
+    poems = Poem.select()
+    index = random.randint(1, len(poems))
+    poem = poems[index]
+    poem = model_to_dict(poem)
+    lines = poem['lines']
+    rand_line_pos = random.randint(1, len(lines)-1)
+    rand_line = lines[rand_line_pos]
+    while rand_line == '':
         rand_line_pos = random.randint(1, len(lines)-1)
         rand_line = lines[rand_line_pos]
-        while rand_line == '':
-            rand_line_pos = random.randint(1, len(lines)-1)
-            rand_line = lines[rand_line_pos]
-        rand_line = jsonify(rand_line)
-        return rand_line
+    rand_line = jsonify(rand_line)
+    return rand_line
 
 
 app.run(port=9000, debug=True)
