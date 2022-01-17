@@ -1,6 +1,6 @@
 # Poetry API
 
-# Data Source - [PoetryDB](https://github.com/thundercomb/poetrydb)
+## Data Source - [PoetryDB](https://github.com/thundercomb/poetrydb)
 
 ## Introduction
 
@@ -233,7 +233,7 @@ Result:
 <b>General Format:</b>
 
 ```
-/random/<author>
+/random[/<author>]
 ```
 
 Format:
