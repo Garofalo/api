@@ -3,7 +3,7 @@ from peewee import *
 from playhouse.postgres_ext import *
 
 response_API = requests.get(
-    'https://poetrydb.org/author/Lady%20Mary%20Chudleigh')
+    'https://poetrydb.org/author/Edgar%20Allan%20Poe')
 data = response_API.json()
 
 db = PostgresqlDatabase('poems', user='postgres',

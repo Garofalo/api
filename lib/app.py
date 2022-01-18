@@ -70,6 +70,8 @@ def title(title=None):
         title = poem['title']
         return jsonify(title)
 
+# How do you kill a circus? DM for answer
+
 
 @app.route('/random/<author>', methods=['GET'])
 @app.route('/random', methods=['GET'])
